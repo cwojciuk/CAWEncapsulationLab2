@@ -8,15 +8,15 @@ package lab2;
  *
  * @author Ninja
  */
-public abstract class GameCharacter{
+public class GameCharacter implements Attack{
     
-    Attack attack;
+    Attack attacktype = new BowAttack();
     private String characterName;
     private int age;
 
-    
-    public GameCharacter(){
-        
+    public GameCharacter(String characterName, int age) {
+        this.characterName = characterName;
+        this.age = age;
     }
 
     public String getCharacterName() {
@@ -24,6 +24,7 @@ public abstract class GameCharacter{
     }
 
     public void setCharacterName(String characterName) {
+        //Validation Required
         this.characterName = characterName;
     }
 
@@ -32,10 +33,13 @@ public abstract class GameCharacter{
     }
 
     public void setAge(int age) {
+        //Validation Required
         this.age = age;
     }
-    public void performAttack() {
-        attack.userAttacks();
+
+    @Override
+    public void userAttacks() {
+        attacktype.userAttacks();
     }
   
     
