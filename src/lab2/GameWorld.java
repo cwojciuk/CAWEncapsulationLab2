@@ -14,11 +14,20 @@ public class GameWorld {
     private int startLocationY;
     private int startLocationZ;
 
+    public GameWorld(String seedValue, int startLocationX, int startLocationY, int startLocationZ) {
+        this.seedValue = seedValue;
+        this.startLocationX = startLocationX;
+        this.startLocationY = startLocationY;
+        this.startLocationZ = startLocationZ;
+    }
+
+    
     public String getSeedValue() {
         return seedValue;
     }
 
     public void setSeedValue(String seedValue) {
+        //Validation Required
         this.seedValue = seedValue;
     }
 
@@ -27,6 +36,7 @@ public class GameWorld {
     }
 
     public void setStartLocationX(int startLocationX) {
+        //Validation Required
         this.startLocationX = startLocationX;
     }
 
@@ -35,6 +45,7 @@ public class GameWorld {
     }
 
     public void setStartLocationY(int startLocationY) {
+        //Validation Required
         this.startLocationY = startLocationY;
     }
 
@@ -43,6 +54,7 @@ public class GameWorld {
     }
 
     public void setStartLocationZ(int startLocationZ) {
+        //Validation Required
         this.startLocationZ = startLocationZ;
     }
     
