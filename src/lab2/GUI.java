@@ -9,7 +9,7 @@ package lab2;
  * @author Ninja
  */
 public class GUI {
-    public void print(String s){
+    public void printIt(String s){
         System.out.println(s);
     }
 }

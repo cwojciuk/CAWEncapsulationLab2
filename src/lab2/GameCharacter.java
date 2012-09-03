@@ -8,38 +8,38 @@ package lab2;
  *
  * @author Ninja
  */
-public class GameCharacter implements Attack{
+public abstract class GameCharacter{
     
-    Attack attacktype = new BowAttack();
-    private String characterName;
-    private int age;
+    Attack attackType;
+    private String characterType;
+    private String weaponInHand;
 
-    public GameCharacter(String characterName, int age) {
-        this.characterName = characterName;
-        this.age = age;
+    public GameCharacter() {
+        
     }
 
-    public String getCharacterName() {
-        return characterName;
+    public String getCharacterType() {
+        return characterType;
     }
 
-    public void setCharacterName(String characterName) {
+    public void setCharacterType(String characterType) {
         //Validation Required
-        this.characterName = characterName;
+        this.characterType = characterType;
     }
 
-    public int getAge() {
-        return age;
+    public String getWeaponInHand() {
+        return weaponInHand;
     }
 
-    public void setAge(int age) {
+    public void setWeaponInHand(String weaponInHand) {
         //Validation Required
-        this.age = age;
+        this.weaponInHand = weaponInHand;
+        performAttack();
     }
 
-    @Override
-    public void userAttacks() {
-        attacktype.userAttacks();
+  
+    public void performAttack(){
+        attackType.userAttacks();
     }
   
     

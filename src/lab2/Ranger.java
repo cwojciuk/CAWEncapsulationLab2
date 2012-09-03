@@ -8,11 +8,8 @@ package lab2;
  *
  * @author Ninja
  */
-public class SwordAttack implements Attack{
-
-    @Override
-    public void userAttacks() {
-        GUI.printIt("Slash!");
+public class Ranger extends GameCharacter{
+    public Ranger(){
+        attackType = new BowAttack();
     }
-    
 }

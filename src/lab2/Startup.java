@@ -14,6 +14,13 @@ public class Startup {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        Game g = new Game();
+        g.setGameName("The Quest.");
+        g.setGameName("1.0.0.1a");
+        g.setTimePlayed(0);
         
+        GameCharacter player = new Ranger();
+        player.setCharacterType("Ranger");
+        player.setWeaponInHand("Bow");
     }
 }

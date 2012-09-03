@@ -12,7 +12,7 @@ public class BowAttack implements Attack{
 
     @Override
     public void userAttacks() {
-        GUI.print("Bullseye!");
+        GUI.printIt("Bullseye!");
     }
     
 }

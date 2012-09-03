@@ -18,6 +18,9 @@ public class Game {
         this.version = version;
         this.timePlayed = timePlayed;
     }
+
+    public Game() {
+    }
     
 
 
@@ -28,6 +31,7 @@ public class Game {
     public void setGameName(String gameName) {
         //Validation Required
         this.gameName = gameName;
+       
     }
 
     public String getVersion() {
