@@ -8,10 +8,16 @@ package lab2;
  *
  * @author Ninja
  */
-public class GameCharacter implements Attack{
+public abstract class GameCharacter{
+    
+    Attack attack;
     private String characterName;
     private int age;
-    private String weapon;
+
+    
+    public GameCharacter(){
+        
+    }
 
     public String getCharacterName() {
         return characterName;
@@ -28,14 +34,9 @@ public class GameCharacter implements Attack{
     public void setAge(int age) {
         this.age = age;
     }
-
-    public String getWeapon() {
-        return weapon;
+    public void performAttack() {
+        attack.userAttacks();
     }
-
-    public void setWeapon(String weapon) {
-        this.weapon = weapon;
-    }
-    
+  
     
 }
