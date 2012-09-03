@@ -22,5 +22,11 @@ public class Startup {
         GameCharacter player = new Ranger();
         player.setCharacterType("Ranger");
         player.setWeaponInHand("Bow");
+        
+        GameWorld gw = new GameWorld();
+        gw.setSeedValue("fser89sdesdf09");
+        gw.setStartLocationX(100);
+        gw.setStartLocationY(340);
+        gw.setStartLocationZ(543);
     }
 }
