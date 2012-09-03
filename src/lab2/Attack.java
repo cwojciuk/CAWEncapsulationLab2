@@ -9,5 +9,6 @@ package lab2;
  * @author Ninja
  */
 public interface Attack {
-    
+    GUI GUI = new GUI();
+    public void userAttacks();
 }

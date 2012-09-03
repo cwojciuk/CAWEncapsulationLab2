@@ -8,8 +8,11 @@ package lab2;
  *
  * @author Ninja
  */
-public class GUI {
-    public void print(String s){
-        System.out.println(s);
+public class SwordAttack implements Attack{
+
+    @Override
+    public void userAttacks() {
+        GUI.print("Slash!");
     }
+    
 }

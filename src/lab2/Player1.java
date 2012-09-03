@@ -8,8 +8,8 @@ package lab2;
  *
  * @author Ninja
  */
-public class GUI {
-    public void print(String s){
-        System.out.println(s);
+public class Player1 extends GameCharacter{
+    public Player1(){
+        
     }
 }
