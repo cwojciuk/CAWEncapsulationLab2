@@ -21,6 +21,9 @@ public class GameWorld {
         this.startLocationZ = startLocationZ;
     }
 
+    public GameWorld() {
+    }
+    
     
     public String getSeedValue() {
         return seedValue;
