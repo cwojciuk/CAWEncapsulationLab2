@@ -20,18 +20,19 @@ import javax.swing.*;
  * @version     1.00
 */
 public class MainGUI extends javax.swing.JFrame implements ActionListener {
+    private HandleErrorReport hr = new HandleErrorReport();
     private final int MAX_RECS = 10;
     private final int NOT_FOUND = -1;
 
-    String partNo;
-    int foundIndex = NOT_FOUND;
+    private String partNo;
+    private int foundIndex = NOT_FOUND;
     private String partDesc;
-    double partPrice;
+    private double partPrice;
 
-    String[] partNums = new String[10];
-    String[] partDescs = new String[10];
-    double[] partPrices = new double[10];
-    int emptyRow;
+    private String[] partNums = new String[10];
+    private String[] partDescs = new String[10];
+    private double[] partPrices = new double[10];
+    private int emptyRow;
 
     /** Creates new form MainGUI */
     public MainGUI() {
@@ -264,23 +265,17 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
         try {
             partPrice = Double.parseDouble(this.txtNewProdPrice.getText());
         } catch(Exception e) {
-            JOptionPane.showMessageDialog(this,
-                    "Sorry, the price entry must be a whole or floating point number only.\n",
-                    "Number Format Error", JOptionPane.WARNING_MESSAGE);
+            hr.reportError("Sorry, the price entry must be a whole or floating point number only.\n","Number Format Error");
             return;
         }
 
         if (emptyRow > 10) {
-            JOptionPane.showMessageDialog(this, 
-                    "Sorry, you have reach the maximum of 10 items.\n"
-                    + "No more items can be saved.", "Maximum Reached", JOptionPane.WARNING_MESSAGE);
+            hr.reportError( "Sorry, you have reach the maximum of 10 items.\n" + "No more items can be saved.", "Maximum Reached");
 
         } else if (partNo.length() == 0 || partDesc.length() == 0 
                 || this.txtNewProdPrice.getText().length() == 0)
         {
-            JOptionPane.showMessageDialog(this, 
-                    "Sorry, you must complete all fields. Please try again.",
-                    "Incomplete Part Entry", JOptionPane.WARNING_MESSAGE);
+            hr.reportError("Sorry, you must complete all fields. Please try again.","Incomplete Part Entry");
             this.txtNewProdNo.requestFocus();
 
         } else {
@@ -304,18 +299,14 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
                 }
             }
            if (foundIndex == NOT_FOUND) {
-                JOptionPane.showMessageDialog(this,
-                    "Part Number not found. Please try again.",
-                    "Not Found", JOptionPane.WARNING_MESSAGE);
+                hr.reportError("Part Number not found. Please try again.","Not Found");
            } else {
                 txtCurProdNo.setText(partNums[foundIndex]);
                 txtCurDesc.setText(partDescs[foundIndex]);
                 txtCurPrice.setText("" + partPrices[foundIndex]);
            }
         } else {
-                JOptionPane.showMessageDialog(this,
-                    "Please enter a Part No. to search",
-                    "Entry Missing", JOptionPane.WARNING_MESSAGE);
+                hr.reportError("Please enter a Part No. to search","Entry Missing");
         }
 
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -326,9 +317,7 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
         if (foundIndex == NOT_FOUND) {
-                JOptionPane.showMessageDialog(this,
-                    "Part Number not found. Please try again.",
-                    "Search Failure", JOptionPane.WARNING_MESSAGE);
+                hr.reportError("Part Number not found. Please try again.","Search Failure");
         } else {
             partNums[foundIndex] = txtCurProdNo.getText();
             partDescs[foundIndex] = txtCurDesc.getText();
