@@ -70,5 +70,27 @@ public class Parts {
         partPrices[emptyRow] = partPrice;
     }
     
-    
+    // Sort by partNumber
+    public void sortList(int emptyRow) {
+        // Only perform the sort if we have records
+        
+            // Bubble sort routine adapted from sample in text book...
+            // Make sure the operations are peformed on all 3 arrays!
+        for(int passNum = 1; passNum < emptyRow; passNum++) {
+            for(int i = 1; i <= emptyRow-passNum; i++) {
+                String temp = "";
+                temp += partPrices[i-1];
+                partPrices[i-1] = partPrices[i];
+                partPrices[i] = Double.parseDouble(temp);
+
+                temp = partNums[i-1];
+                partNums[i-1] = partNums[i];
+                partNums[i] = temp;
+
+                temp = partDescs[i-1];
+                partDescs[i-1] = partDescs[i];
+                partDescs[i] = temp;
+            }
+        }
+    }
 }
