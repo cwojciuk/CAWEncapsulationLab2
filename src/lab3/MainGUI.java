@@ -22,16 +22,9 @@ import javax.swing.*;
 public class MainGUI extends javax.swing.JFrame implements ActionListener {
     private final int MAX_RECS = 10;
     private final int NOT_FOUND = -1;
-
-    private String partNo;
     private int foundIndex = NOT_FOUND;
-    private String partDesc;
-    private double partPrice;
-
-    private String[] partNums = new String[10];
-    private String[] partDescs = new String[10];
-    private double[] partPrices = new double[10];
     private int emptyRow;
+    private Parts parts;
 
     /** Creates new form MainGUI */
     public MainGUI() {
@@ -258,11 +251,11 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
 
     private void btnEnterRecordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnterRecordActionPerformed
         foundIndex = NOT_FOUND;
-
-        partNo = this.txtNewProdNo.getText();
-        partDesc = this.txtNewProdDesc.getText();
+        parts = new Parts();
+        parts.setPartNo(this.txtNewProdNo.getText());
+        parts.setPartDesc(this.txtNewProdDesc.getText());
         try {
-            partPrice = Double.parseDouble(this.txtNewProdPrice.getText());
+            parts.setPartPrice(Double.parseDouble(this.txtNewProdPrice.getText()));
         } catch(Exception e) {
             issueWarningMessage("Sorry, the price entry must be a whole or floating point number only.\n","Number Format Error");
             return;
@@ -271,16 +264,16 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
         if (emptyRow > 10) {
             issueWarningMessage("Sorry, you have reach the maximum of 10 items.\n"+ "No more items can be saved.", "Maximum Reached");
 
-        } else if (partNo.length() == 0 || partDesc.length() == 0 
+        } else if (parts.getPartNo().length() == 0 || parts.getPartDesc().length() == 0 
                 || this.txtNewProdPrice.getText().length() == 0)
         {
             issueWarningMessage("Sorry, you must complete all fields. Please try again.","Incomplete Part Entry");
             this.txtNewProdNo.requestFocus();
 
         } else {
-            partNums[emptyRow] = partNo;
-            partDescs[emptyRow] = partDesc;
-            partPrices[emptyRow] = partPrice;
+            parts.setPartNums(parts.getPartNo(),emptyRow);
+            parts.setPartDescs(parts.getPartDesc(),emptyRow);
+            parts.setPartPrices(parts.getPartPrice(),emptyRow);
             this.emptyRow += 1;
         }
 
@@ -291,8 +284,8 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         String searchNum = txtSearchPartNo.getText();
         if (searchNum != null && searchNum.length() > 0) {
-            for (int i = 0; i < this.partNums.length; i++) {
-                if (searchNum.equalsIgnoreCase(partNums[i])) {
+            for (int i = 0; i < parts.getPartNums().length; i++) {
+                if (searchNum.equalsIgnoreCase(parts.getPartNums()[i])) {
                     foundIndex = i;
                     break;
                 }
@@ -300,9 +293,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
            if (foundIndex == NOT_FOUND) {
                 issueWarningMessage("Part Number not found. Please try again.","Not Found");
            } else {
-                txtCurProdNo.setText(partNums[foundIndex]);
-                txtCurDesc.setText(partDescs[foundIndex]);
-                txtCurPrice.setText("" + partPrices[foundIndex]);
+                txtCurProdNo.setText(parts.getPartNums()[foundIndex]);
+                txtCurDesc.setText(parts.getPartDescs()[foundIndex]);
+                txtCurPrice.setText("" + parts.getPartPrices()[foundIndex]);
            }
         } else {
                 issueWarningMessage("Please enter a Part No. to search","Entry Missing");
@@ -318,9 +311,9 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
         if (foundIndex == NOT_FOUND) {
                 issueWarningMessage("Part Number not found. Please try again.","Search Failure");
         } else {
-            partNums[foundIndex] = txtCurProdNo.getText();
-            partDescs[foundIndex] = txtCurDesc.getText();
-            partPrices[foundIndex] = Double.parseDouble(txtCurPrice.getText());
+            parts.setPartNums(txtCurProdNo.getText(),foundIndex);
+            parts.setPartDescs(txtCurDesc.getText(),foundIndex);
+            parts.setPartPrices(Double.parseDouble(txtCurPrice.getText()),foundIndex);
             displayList();
             issueInformationMessage("Part updated successfully!","Success Confirmation");
         }
@@ -335,8 +328,8 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
         listProducts.setText(""); // clear list
         listProducts.append("Part\tDesc\t\tPrice\n====\t====\t\t=====\n");
         for (int i = 0 ; i < emptyRow; i++) {
-            String rLine = partNums[i] + "\t"
-                    + partDescs[i] + "\t\t" + nf.format(partPrices[i]) + "\n";
+            String rLine = parts.getPartNums()[i] + "\t"
+                    + parts.getPartDescs()[i] + "\t\t" + nf.format(parts.getPartPrices()[i]) + "\n";
             listProducts.append(rLine);
         }
     }
@@ -350,17 +343,17 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
             for(int passNum = 1; passNum < emptyRow; passNum++) {
                 for(int i = 1; i <= emptyRow-passNum; i++) {
                     String temp = "";
-                    temp += partPrices[i-1];
-                    partPrices[i-1] = partPrices[i];
-                    partPrices[i] = Double.parseDouble(temp);
+                    temp += parts.getPartPrices()[i-1];
+                    parts.setPartPrices(parts.getPartPrices()[i],i-1);
+                    parts.setPartPrices(Double.parseDouble(temp),i);
 
-                    temp = partNums[i-1];
-                    partNums[i-1] = partNums[i];
-                    partNums[i] = temp;
+                    temp = parts.getPartNums()[i-1];
+                    parts.setPartNums(parts.getPartNums()[i],i-1);
+                    parts.setPartNums(temp,i);
 
-                    temp = partDescs[i-1];
-                    partDescs[i-1] = partDescs[i];
-                    partDescs[i] = temp;
+                    temp = parts.getPartDescs()[i-1];
+                    parts.setPartDescs(parts.getPartDescs()[i],i-1);
+                    parts.setPartDescs(temp,i);
                 }
             }
             // Once it's sorted, display in the list box
