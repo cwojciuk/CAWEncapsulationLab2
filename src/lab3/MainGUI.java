@@ -320,7 +320,13 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     private void btnSortListActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSortListActionPerformed
-        sortList();
+        if(emptyRow > 0) {
+            parts.sortList(emptyRow);
+            displayList();
+        } else{
+            issueWarningMessage("Sorry, there are not items to sort", "Sort Error");
+        }
+        
     }//GEN-LAST:event_btnSortListActionPerformed
 
     private void displayList() {
@@ -331,35 +337,6 @@ public class MainGUI extends javax.swing.JFrame implements ActionListener {
             String rLine = parts.getPartNums()[i] + "\t"
                     + parts.getPartDescs()[i] + "\t\t" + nf.format(parts.getPartPrices()[i]) + "\n";
             listProducts.append(rLine);
-        }
-    }
-
-    // Sort by partNumber
-    private void sortList() {
-        // Only perform the sort if we have records
-        if(emptyRow > 0) {
-            // Bubble sort routine adapted from sample in text book...
-            // Make sure the operations are peformed on all 3 arrays!
-            for(int passNum = 1; passNum < emptyRow; passNum++) {
-                for(int i = 1; i <= emptyRow-passNum; i++) {
-                    String temp = "";
-                    temp += parts.getPartPrices()[i-1];
-                    parts.setPartPrices(parts.getPartPrices()[i],i-1);
-                    parts.setPartPrices(Double.parseDouble(temp),i);
-
-                    temp = parts.getPartNums()[i-1];
-                    parts.setPartNums(parts.getPartNums()[i],i-1);
-                    parts.setPartNums(temp,i);
-
-                    temp = parts.getPartDescs()[i-1];
-                    parts.setPartDescs(parts.getPartDescs()[i],i-1);
-                    parts.setPartDescs(temp,i);
-                }
-            }
-            // Once it's sorted, display in the list box
-            displayList();
-        } else {
-            issueWarningMessage("Sorry, there are not items to sort", "Sort Error");
         }
     }
 
